@@ -44,5 +44,26 @@ console.log(prioritiesSum)
  * 
  * 
  **************************************************************************************/
-
+let elvesGroup = [];
+let prioritiesSumPartTwo = 0
+parsedDataset.forEach((rucksack) => {
+    if(elvesGroup.length === 3) {
+        elvesGroup = []
+    }
+    elvesGroup.push(rucksack)
+    if(elvesGroup.length === 3) {
+        const firstElveSack = elvesGroup[0].split("")
+        const secondElveSack = elvesGroup[1].split("")
+        const matchingPatternFirsTwoElves = firstElveSack.filter((item) => {
+            return  secondElveSack.indexOf(item) > -1 
+        });
+        const thirdElveSack = elvesGroup[2]
+        const matchingPatternWithLastElve = matchingPatternFirsTwoElves.filter((item) => {
+            return thirdElveSack.indexOf(item) > -1
+        })
+        const elvesGroupBadge = [...new Set(matchingPatternWithLastElve)]
+        prioritiesSumPartTwo += prioritiesByItem.findIndex((itemIndex) => itemIndex === elvesGroupBadge[0]) + 1
+    }
+});
+console.log(prioritiesSumPartTwo)
 
