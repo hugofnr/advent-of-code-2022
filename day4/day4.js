@@ -57,7 +57,7 @@ parsedDataset.forEach((pair) => {
         totalAssignmentsPair +=1
     }
 });
-console.log(`Total is : ${totalAssignmentsPair}`)
+console.log(`Total for part one is : ${totalAssignmentsPair}`)
 
 /***************************************************************************************
  *                                                                                           
@@ -66,4 +66,40 @@ console.log(`Total is : ${totalAssignmentsPair}`)
  * 
  * 
  **************************************************************************************/
-const sampleData = ['2-4,6-8', '2-3,4-5', '5-7,7-9', '2-8,3-7', '6-6,4-6', '2-6,4-8']
+
+let totalAssignmentsPairPartTwo = 0
+
+function isThereAtLeastOneElementInBothPair(firstPairRange, secondPairRange) {
+    let isPairsOverlap = false
+    firstPairRange.every((value) => {
+        const isCurrentValueInFirstRangePresentInSecondOne = secondPairRange.find((secondPairValue) => secondPairValue === value);
+        if(isCurrentValueInFirstRangePresentInSecondOne !== undefined) {
+            isPairsOverlap = true
+            // equivalent to a break statement
+            return false
+        }
+        //equivalent to continue statement
+        return true
+    })
+    return isPairsOverlap
+}
+
+parsedDataset.forEach((pair) => {
+    const splittedPair = pair.split(',')
+    const firstPair = splittedPair[0];
+    const secondPair = splittedPair[1];
+    
+    const firstPairSeparatedMinMaxRange = firstPair.split('-')
+    const secondPairSeparatedMinMaxRange = secondPair.split('-')
+    
+    const firstPairRange = Array.from({length:(parseInt(firstPairSeparatedMinMaxRange[1], 10)-parseInt(firstPairSeparatedMinMaxRange[0],10))+1}, 
+    (value, key) => key + parseInt(firstPairSeparatedMinMaxRange[0],10))
+    
+    const secondPairRange = Array.from({length:(parseInt(secondPairSeparatedMinMaxRange[1], 10)-parseInt(secondPairSeparatedMinMaxRange[0],10))+1}, 
+    (value, key) => key + parseInt(secondPairSeparatedMinMaxRange[0],10))
+    
+    if(isThereAtLeastOneElementInBothPair(firstPairRange, secondPairRange)) {
+        totalAssignmentsPairPartTwo +=1
+    }
+});
+console.log(`Total for part two is : ${ totalAssignmentsPairPartTwo}`)
