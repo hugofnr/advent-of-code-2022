@@ -1,7 +1,7 @@
 /***************************************************************************************
  *                                                                                           
  * 
- *            PART ONE
+ *            PART ONE & TWO
  * 
  * 
  **************************************************************************************/
@@ -22,12 +22,11 @@ const stackOfCrates = new Map();
 // find where the instructions begin
 let indexEndingStacksOfCrates = 0
 while (parsedDataset[indexEndingStacksOfCrates] !== "") {
-  indexEndingStacksOfCrates++
+    indexEndingStacksOfCrates++
 }
-console.log(`Index is ${indexEndingStacksOfCrates}`)
+
 const lineContainingNumberOfStacks = parsedDataset[indexEndingStacksOfCrates-1].trim();
 const numberOfStacks = parseInt(lineContainingNumberOfStacks[lineContainingNumberOfStacks.length-1], 10);
-
 
 for(let lineNumber = 0; lineNumber < numberOfStacks-1; lineNumber++) {
   const firstCrat = parsedDataset[lineNumber].substring(0, 3)
@@ -75,18 +74,17 @@ for (let remainingLine = indexEndingStacksOfCrates+1; remainingLine < parsedData
 
     const indexTo = instructions.findIndex((instruction) => instruction === "to");
     const destinationStack = parseInt(instructions[indexTo+1], 10);
-    console.log(`Numbertomove : ${numberOfCratesToMove}, INITIAL STACK : ${initialStack}, DEST STACK: ${destinationStack}`)
     // retrieve from initialStack
     const cratesToTake = stackOfCrates.get(initialStack).slice(0, numberOfCratesToMove)
     //remove it
-    stackOfCrates.set(initialStack, stackOfCrates.get(initialStack).splice(0, numberOfCratesToMove))
+    stackOfCrates.set(initialStack, stackOfCrates.get(initialStack).splice(numberOfCratesToMove))
     //reverse so last element be on top
+    //comment this line to answer part two
     const reversedArray = cratesToTake.reverse()
-    console.log(reversedArray)
     //update new stack
     stackOfCrates.set(destinationStack, reversedArray.concat(stackOfCrates.get(destinationStack)))
-    console.log(remainingLine)
-    //console.log(stackOfCrates.get(destinationStack))
 }
 //display word to guess
-//
+for (let i = 1; i <= numberOfStacks; i++) {
+    console.log(stackOfCrates.get(i)[0])
+}
