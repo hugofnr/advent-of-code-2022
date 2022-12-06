@@ -16,6 +16,7 @@ let idxEndParse = 4
 while(!found) {
     const analyzedBuffer = dataset.substring(idxStartParse, idxEndParse)
     const uniqueLetters = [...new Set(analyzedBuffer.split(''))]
+    // replace 4 to 19 for part two
     if(uniqueLetters.length === 4) {
         found = true
     } else {
@@ -24,3 +25,26 @@ while(!found) {
     }
 }
 console.log(idxEndParse)
+/***************************************************************************************
+ *                                                                                           
+ * 
+ *            PART ONE
+ * 
+ * 
+ **************************************************************************************/
+ let foundPartTwo = false
+ let idxStartParsePartTwo = 0
+ let idxEndParsePartTwo = 14
+
+ while(!foundPartTwo) {
+     const analyzedBuffer = dataset.substring(idxStartParsePartTwo, idxEndParsePartTwo)
+     const uniqueLetters = [...new Set(analyzedBuffer.split(''))]
+     // replace 4 to 19 for part two
+     if(uniqueLetters.length === 14) {
+         foundPartTwo = true
+     } else {
+         idxStartParsePartTwo+=1
+         idxEndParsePartTwo+=1
+     }
+ }
+ console.log(idxEndParsePartTwo)
